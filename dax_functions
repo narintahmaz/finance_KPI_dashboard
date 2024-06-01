@@ -1,0 +1,24 @@
+İstifadə etdiyim dax hesablamaları 
+1) Total Sales Actual = Sum(Actual[Sales]) 
+2) Total Sales Target = sum(Targets[Sales]) 
+3) Variance = [Total Sales Actual]-[Total Sales Target]
+4) Variance % = DIVIDE([Variance],[Total Sales Target]) 
+5) Variance Pct Label = 
+var up="🟢"
+var down="🔴"
+var  formatted_var_pct= FORMAT(ABS([Variance %]),"0.0%")
+RETURN
+formatted_var_pct& " " & IF([Variance %]>0,up,down)
+
+
+
+
+6) Trend Chart Title = 
+   var month_count=COUNTROWS('Calendar')
+   return 
+   "We met targets for " &[Month Target Reached]& "out of" & month_count & "months"
+
+7) Month Target Reached = 
+Var month_target_reached=Filter('Calendar',[Variance]>0)
+RETURN
+COUNTROWS(month_target_reached)
